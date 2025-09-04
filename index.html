@@ -1,43 +1,382 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
-    <style>
-        .logo{
-        }
-        nav{
-            display:flex;
-            justify-content: space-around;
-            align-items: center;
-        }
-        .right ul{
-            display:flex;
-            gap:34px;
-        }
-        .right ul li{
-            list-style: none;
-            cursor:pointer;
-            
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>College Sports Registration</title>
+  <style>
+    :root{
+      --bg:#0f172a;          /* slate-900 */
+      --card:#111827;        /* gray-900 */
+      --muted:#94a3b8;       /* slate-400 */
+      --text:#e5e7eb;        /* gray-200 */
+      --brand:#22c55e;       /* green-500 */
+      --brand-2:#06b6d4;     /* cyan-500 */
+      --accent:#f59e0b;      /* amber-500 */
+      --error:#ef4444;       /* red-500 */
+      --radius:16px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%;background:linear-gradient(180deg,#0b1022 0%, #0f172a 100%);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',Arial,'Noto Sans',sans-serif}
+    a{color:inherit;text-decoration:none}
+    .container{max-width:1100px;margin-inline:auto;padding:24px}
+    header{
+      position:sticky;top:0;backdrop-filter:blur(10px);
+      background:rgba(15,23,42,.7);border-bottom:1px solid #1f2937;z-index:50
+    }
+    header .inner{display:flex;align-items:center;gap:16px;justify-content:space-between}
+    nav a{padding:10px 12px;border-radius:10px}
+    nav a:hover{background:#1f2937}
+    .logo-wrap{
+      display:flex;align-items:center;gap:12px
+    }
+    /* BLANK LOGO SPACE */
+    .logo-placeholder{
+      width:56px;height:56px;border:2px dashed #334155;border-radius:12px;
+      display:flex;align-items:center;justify-content:center;
+      background:rgba(2,6,23,.3);color:#64748b;font-size:10px;text-align:center;line-height:1.1;
+      user-select:none
+    }
+    .title{font-weight:700;letter-spacing:.3px}
+    .hero{padding:64px 0 24px}
+    .hero .grid{display:grid;grid-template-columns:1.2fr .8fr;gap:24px}
+    .card{background:linear-gradient(180deg,rgba(17,24,39,.8),rgba(17,24,39,.65));border:1px solid #1f2937;border-radius:var(--radius);padding:22px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+    .badge{display:inline-block;background:rgba(34,197,94,.12);color:#86efac;border:1px solid rgba(34,197,94,.35);padding:6px 10px;border-radius:999px;font-size:12px}
+    .cta{display:flex;gap:12px;margin-top:16px;flex-wrap:wrap}
+    .btn{padding:12px 16px;border-radius:12px;border:1px solid #1f2937;cursor:pointer;font-weight:600}
+    .btn-primary{background:linear-gradient(90deg,var(--brand),var(--brand-2));color:#052e2b;border:none}
+    .btn-ghost{background:transparent}
+    .section{padding:32px 0}
+    h2{margin:0 0 12px 0;font-size:28px}
+    p{color:var(--muted)}
+    /* Sports grid */
+    .sports{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+    .sport{padding:16px;border-radius:14px;background:#0b1223;border:1px solid #1f2937}
+    .sport b{display:block;margin-bottom:6px}
+    @media (max-width:960px){.hero .grid{grid-template-columns:1fr}.sports{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:520px){.sports{grid-template-columns:1fr}}
+    /* Form */
+    form{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    form .full{grid-column:1/-1}
+    label{display:block;margin:0 0 6px 2px;color:#cbd5e1;font-size:14px}
+    input,select,textarea{
+      width:100%;padding:12px 14px;border-radius:12px;border:1px solid #253146;background:#0b1223;color:var(--text);
+      outline:none
+    }
+    textarea{min-height:90px;resize:vertical}
+    .help{font-size:12px;color:#94a3b8;margin-top:4px}
+    .error{font-size:13px;color:var(--error);display:none;margin-top:6px}
+    .success{display:none;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.35);color:#86efac;padding:12px 14px;border-radius:12px;margin-top:8px}
+    .tools{display:flex;gap:10px;flex-wrap:wrap}
+    footer{border-top:1px solid #1f2937;margin-top:32px}
+    small, footer p{color:#64748b}
+    .table-wrap{overflow:auto;border:1px solid #1f2937;border-radius:12px}
+    table{width:100%;border-collapse:collapse;min-width:720px}
+    th,td{padding:10px 12px;border-bottom:1px solid #1f2937}
+    th{text-align:left;color:#cbd5e1;background:#0b1223}
+  </style>
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="logo">
-                <img width="164px" src="image.png" alt="photo">
-            </div>
-            <div class="right">
-                <ul>
-                    <li>Products</li>
-                    <li>Pricing</li>
-                    <li>Resources</li>
-                    <li>About Us</li>
-                </ul>
-            </div>
-        </nav>
-    </header>
+  <header>
+    <div class="container inner">
+      <div class="logo-wrap">
+        <!-- Blank space to add your logo later.
+             Replace the following div with <img src="path/to/logo.png" alt="College Logo"> -->
+        <div class="logo-placeholder">LOGO</div>
+        <div class="title">
+          <div style="font-size:18px;">Your College Name</div>
+          <small>Sports & Games Cell</small>
+        </div>
+      </div>
+      <nav>
+        <a href="#home">Home</a>
+        <a href="#sports">Sports</a>
+        <a href="#register">Register</a>
+        <a href="#entries">Entries</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="home" class="container hero">
+    <div class="grid">
+      <section class="card">
+        <span class="badge">2025 Season • Open Now</span>
+        <h1 style="margin:10px 0 8px;font-size:34px;">Register for College Sports</h1>
+        <p>Players from all departments and years are welcome. Fill the form to join selections and training sessions.</p>
+        <div class="cta">
+          <a class="btn btn-primary" href="#register">Register Now</a>
+          <a class="btn btn-ghost" href="#sports">View Sports</a>
+        </div>
+        <ul style="margin:18px 0 0 18px;color:#cbd5e1;">
+          <li>Trials start next month – schedule will be emailed.</li>
+          <li>Bring college ID card at the venue.</li>
+          <li>Contact: sports@yourcollege.edu</li>
+        </ul>
+      </section>
+
+      <aside class="card">
+        <h3 style="margin:0 0 10px;">Announcements</h3>
+        <ul style="margin:0 0 10px 18px;">
+          <li>Inter-College Meet registrations close on <b>Sept 30</b>.</li>
+          <li>Fitness screening is mandatory for contact sports.</li>
+          <li>Volunteers needed for event management.</li>
+        </ul>
+        <p class="help">Tip: Replace this box with live updates later.</p>
+      </aside>
+    </div>
+  </main>
+
+  <section id="sports" class="container section">
+    <h2>Sports Offered</h2>
+    <p>Choose your sport while registering. Multiple selections are allowed.</p>
+    <div class="sports">
+      <div class="sport"><b>Cricket</b><span class="help">Men & Women • Outdoor</span></div>
+      <div class="sport"><b>Football</b><span class="help">Men & Women • Outdoor</span></div>
+      <div class="sport"><b>Basketball</b><span class="help">Men & Women • Indoor/Outdoor</span></div>
+      <div class="sport"><b>Volleyball</b><span class="help">Men & Women • Outdoor</span></div>
+      <div class="sport"><b>Badminton</b><span class="help">Singles/Doubles • Indoor</span></div>
+      <div class="sport"><b>Table Tennis</b><span class="help">Singles/Doubles • Indoor</span></div>
+      <div class="sport"><b>Athletics</b><span class="help">Track & Field</span></div>
+      <div class="sport"><b>Chess</b><span class="help">Open • Indoor</span></div>
+    </div>
+  </section>
+
+  <section id="register" class="container section">
+    <h2>Player Registration Form</h2>
+    <p>All fields marked * are required.</p>
+
+    <form id="regForm" novalidate>
+      <div>
+        <label for="fullName">Full Name *</label>
+        <input id="fullName" name="fullName" required placeholder="e.g., Aman Sharma" />
+        <div class="error" data-for="fullName">Please enter your name.</div>
+      </div>
+
+      <div>
+        <label for="studentId">Student ID / Roll No. *</label>
+        <input id="studentId" name="studentId" required placeholder="e.g., 23CSE1021" />
+        <div class="error" data-for="studentId">Please enter your roll number.</div>
+      </div>
+
+      <div>
+        <label for="email">Email *</label>
+        <input id="email" name="email" type="email" required placeholder="you@college.edu" />
+        <div class="error" data-for="email">Enter a valid email address.</div>
+      </div>
+
+      <div>
+        <label for="phone">Phone *</label>
+        <input id="phone" name="phone" type="tel" required pattern="[0-9]{10}" placeholder="10-digit mobile" />
+        <div class="help">Digits only, no spaces.</div>
+        <div class="error" data-for="phone">Enter a 10-digit phone number.</div>
+      </div>
+
+      <div>
+        <label for="department">Department *</label>
+        <select id="department" name="department" required>
+          <option value="">Select department</option>
+          <option>CSE</option><option>ECE</option><option>EEE</option><option>ME</option>
+          <option>CE</option><option>IT</option><option>BBA</option><option>Other</option>
+        </select>
+        <div class="error" data-for="department">Select your department.</div>
+      </div>
+
+      <div>
+        <label for="year">Year *</label>
+        <select id="year" name="year" required>
+          <option value="">Select year</option>
+          <option>1st</option><option>2nd</option><option>3rd</option><option>4th</option><option>PG</option>
+        </select>
+        <div class="error" data-for="year">Select your year.</div>
+      </div>
+
+      <div class="full">
+        <label for="sports">Sports (choose one or more) *</label>
+        <select id="sports" name="sports" multiple required>
+          <option>Cricket</option><option>Football</option><option>Basketball</option><option>Volleyball</option>
+          <option>Badminton</option><option>Table Tennis</option><option>Athletics</option><option>Chess</option>
+        </select>
+        <div class="help">Hold Ctrl (Windows) / Cmd (Mac) to select multiple.</div>
+        <div class="error" data-for="sports">Select at least one sport.</div>
+      </div>
+
+      <div>
+        <label for="position">Preferred Role/Position</label>
+        <input id="position" name="position" placeholder="e.g., Forward, Setter, All-rounder" />
+      </div>
+
+      <div>
+        <label for="experience">Experience (years)</label>
+        <input id="experience" name="experience" type="number" min="0" step="0.5" placeholder="e.g., 2" />
+      </div>
+
+      <div class="full">
+        <label for="notes">Notes (injuries, achievements, timings)</label>
+        <textarea id="notes" name="notes" placeholder="Anything coaches should know..."></textarea>
+      </div>
+
+      <div class="full" style="display:flex;align-items:center;gap:10px">
+        <input id="consent" type="checkbox" required />
+        <label for="consent" style="margin:0">I confirm the details are correct and agree to be contacted. *</label>
+      </div>
+      <div class="error full" data-for="consent">You must agree before submitting.</div>
+
+      <div class="tools full">
+        <button class="btn btn-primary" type="submit">Submit Registration</button>
+        <button class="btn" type="reset">Clear</button>
+      </div>
+
+      <div id="successMsg" class="success full">✅ Registration saved! Check your email for updates.</div>
+    </form>
+  </section>
+
+  <section id="entries" class="container section">
+    <h2>Submitted Entries (Local)</h2>
+    <p class="help">These entries are saved in your browser only (for testing). Click “Export CSV” to download.</p>
+    <div class="tools" style="margin:8px 0 12px">
+      <button id="exportBtn" class="btn">Export CSV</button>
+      <button id="clearBtn" class="btn">Clear All (Local)</button>
+    </div>
+    <div class="table-wrap">
+      <table id="entriesTable" aria-live="polite">
+        <thead>
+          <tr>
+            <th>Name</th><th>Roll No.</th><th>Email</th><th>Phone</th>
+            <th>Dept</th><th>Year</th><th>Sports</th><th>Role</th><th>Exp</th><th>Notes</th><th>Time</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <p class="help">For a real deployment, connect the form to Google Forms/Sheets or your college server.</p>
+  </section>
+
+  <footer class="container section">
+    <p>© <span id="yearNow"></span> Your College Name • Sports & Games Cell</p>
+  </footer>
+
+  <script>
+    const form = document.getElementById('regForm');
+    const successMsg = document.getElementById('successMsg');
+    const tableBody = document.querySelector('#entriesTable tbody');
+    const exportBtn = document.getElementById('exportBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const yearNow = document.getElementById('yearNow');
+    yearNow.textContent = new Date().getFullYear();
+
+    const STORAGE_KEY = 'college_sports_entries';
+
+    function getEntries(){
+      try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
+      catch { return []; }
+    }
+    function saveEntries(list){ localStorage.setItem(STORAGE_KEY, JSON.stringify(list)); }
+
+    function showError(inputId, show){
+      const el = document.querySelector(.error[data-for="${inputId}"]);
+      if(el){ el.style.display = show ? 'block' : 'none'; }
+    }
+
+    function renderTable(){
+      const entries = getEntries();
+      tableBody.innerHTML = entries.map(e => `
+        <tr>
+          <td>${e.fullName}</td>
+          <td>${e.studentId}</td>
+          <td>${e.email}</td>
+          <td>${e.phone}</td>
+          <td>${e.department}</td>
+          <td>${e.year}</td>
+          <td>${e.sports.join(', ')}</td>
+          <td>${e.position || ''}</td>
+          <td>${e.experience ?? ''}</td>
+          <td>${(e.notes || '').replace(/</g,'&lt;')}</td>
+          <td>${new Date(e.timestamp).toLocaleString()}</td>
+        </tr>
+      `).join('');
+    }
+
+    function toCSV(rows){
+      const esc = (v='') => "${String(v).replace(/"/g,'""')}";
+      const headers = ["Name","Roll No.","Email","Phone","Department","Year","Sports","Role","Experience","Notes","Timestamp"];
+      const lines = [headers.join(',')];
+      rows.forEach(r=>{
+        lines.push([
+          r.fullName, r.studentId, r.email, r.phone, r.department, r.year,
+          r.sports.join('; '), r.position || '', r.experience ?? '', r.notes || '',
+          new Date(r.timestamp).toISOString()
+        ].map(esc).join(','));
+      });
+      return lines.join('\n');
+    }
+
+    form.addEventListener('submit', (e)=>{
+      e.preventDefault();
+
+      // basic validation
+      let ok = true;
+      const reqIds = ['fullName','studentId','email','phone','department','year','sports','consent'];
+      reqIds.forEach(id=>{
+        if(id === 'sports'){
+          const sel = document.getElementById('sports');
+          const valid = [...sel.options].some(o=>o.selected);
+          showError(id,!valid); if(!valid) ok=false;
+        } else if(id === 'consent'){
+          const c = document.getElementById('consent');
+          showError(id,!c.checked); if(!c.checked) ok=false;
+        } else {
+          const input = document.getElementById(id);
+          const valid = input.checkValidity();
+          showError(id,!valid); if(!valid) ok=false;
+        }
+      });
+      if(!ok){ return; }
+
+      const data = {
+        fullName: document.getElementById('fullName').value.trim(),
+        studentId: document.getElementById('studentId').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        phone: document.getElementById('phone').value.trim(),
+        department: document.getElementById('department').value,
+        year: document.getElementById('year').value,
+        sports: [...document.getElementById('sports').selectedOptions].map(o=>o.value),
+        position: document.getElementById('position').value.trim(),
+        experience: document.getElementById('experience').value,
+        notes: document.getElementById('notes').value.trim(),
+        timestamp: Date.now()
+      };
+
+      const entries = getEntries();
+      entries.push(data);
+      saveEntries(entries);
+      renderTable();
+
+      successMsg.style.display = 'block';
+      form.reset();
+      setTimeout(()=>successMsg.style.display='none', 3500);
+    });
+
+    exportBtn.addEventListener('click', ()=>{
+      const entries = getEntries();
+      if(!entries.length){ alert('No entries to export yet.'); return; }
+      const csv = toCSV(entries);
+      const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'sports_registrations.csv';
+      document.body.appendChild(a); a.click();
+      a.remove(); URL.revokeObjectURL(url);
+    });
+
+    clearBtn.addEventListener('click', ()=>{
+      if(confirm('Clear all saved entries from this browser?')){
+        saveEntries([]); renderTable();
+      }
+    });
+
+    // initial
+    renderTable();
+  </script>
 </body>
 </html>
+<!-- demo  -->
